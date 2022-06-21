@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - dist/manifest.json
+  pull_request:
+    branches: ["main"]
+    paths:
+      - dist/manifest.json
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.0
+
+      - uses: pnpm/action-setup@v2.0.1
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: app
+          path: .
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: none
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: app
+
+      - name: Pack Extension XPI
+        id: web-ext-build
+        uses: kewisch/action-web-ext@v1
+        with:
+          cmd: build
+          source: ./dist
+
+      - name: Publish to Firefox Add-ons
+        id: web-ext-sign
+        uses: kewisch/action-web-ext@v1
+        with:
+          cmd: sign
+          channel: listed
+          source: ${{ steps.web-ext-build.outputs.target }}
+          apiKey: ${{ secrets.FIREFOX_ISSUER }}
+          apiSecret: ${{ secrets.FIREFOX_SECRET }}
+
+      - name: Pack Extension ZIP
+        uses: TheDoctor0/zip-release@0.6.2
+        with:
+          path: ./dist
+          filename: ./Package.zip
+          exclusions: ".git/* .vscode/* .github/*"
+
+      - name: Publish to Chrome Webstore
+        uses: trmcnvn/chrome-addon@v2
+        with:
+          extension: proyecta-utch
+          zip: ./Package.zip
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}

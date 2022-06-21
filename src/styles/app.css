@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap");
+
+* {
+    /*outline: 1px solid red;*/
+}
+
+@layer base {
+    body {
+        @apply bg-gray-200 text-black font-body select-none;
+    }
+
+    input {
+        @apply block appearance-none bg-transparent text-center tracking-wide p-3 w-full;
+    }
+
+    input:focus {
+        @apply outline-none;
+    }
+
+    a,
+    svg,
+    span,
+    small {
+        @apply block;
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "Proyecta UTCH",
+    "description": "Aplicación que permite a los alumnos de la Universidad Tecnológica de Chihuahua, consultar su información",
+    "version": "1.0.0",
+    "browser_action": {
+        "default_icon": "favicon-16.png",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["js/backgroundPage.js"],
+        "persistent": false
+    },
+    "icons": {
+        "16": "favicon-16.png",
+        "48": "favicon-48.png",
+        "128": "favicon-128.png"
+    },
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "notifications",
+        "storage",
+        "http://*/",
+        "https://*/"
+    ]
+}
