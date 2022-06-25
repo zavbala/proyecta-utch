@@ -7,6 +7,11 @@
         "default_icon": "favicon-16.png",
         "default_popup": "popup.html"
     },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "proyecta.utch.edu.mx"
+        }
+    },
     "background": {
         "scripts": ["js/backgroundPage.js"],
         "persistent": false
