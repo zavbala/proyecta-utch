@@ -6,16 +6,14 @@ export const fetcher = async <T>(
     query: Record<string, string>,
     path?: string,
 ): Promise<Output<T>> => {
-    const url =
-        BASE_URL +
-        (method === "auth" ? "/app/login" : "/alumno/" + path) +
-        `?${Object.entries(query)
-            .map(([key, value]) => `${key}=${value}`)
-            .join("&")}`;
+    const args = new URLSearchParams(query).toString();
+    const endpoint = method === "auth" ? "/app/login" : "/alumno/" + path;
+    const url = BASE_URL + endpoint + `?${args}`;
 
     const res = await fetch(url, {
         headers: new Headers({
-            "Content-Type": "",
+            Host: "proyecta.utch.edu.mx",
+            Origin: "https://proyecta.utch.edu.mx",
         }),
     });
 

@@ -7,14 +7,14 @@ export const Footer = () => {
     const { token, setToken } = React.useContext(MainContext);
 
     return (
-        <footer className="flex items-center justify-between px-3 py-2 h-[75px]">
+        <footer className="flex h-[75px] items-center justify-between px-3 py-2">
             <div />
 
             <div>
                 <button
                     type="button"
                     title="Configuración"
-                    className="p-2 hover:bg-gray-200 rounded"
+                    className="rounded p-2 hover:bg-gray-200"
                     onClick={async () =>
                         await browser.tabs.create({ url: "options.html" })
                     }
@@ -30,7 +30,7 @@ export const Footer = () => {
                             await browser.storage.local.remove("token");
                             setToken("");
                         }}
-                        className="p-2 rounded bg-red-600 hover:bg-red-700 ml-2"
+                        className="ml-2 rounded bg-red-600 p-2 hover:bg-red-700"
                     >
                         <ExitIcon color="#fff" />
                     </button>

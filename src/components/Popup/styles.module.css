@@ -1,7 +1,7 @@
-.popupContainer {
+.container {
+    display: flex;
     min-width: 350px;
     min-height: 550px;
-    display: flex;
     flex-direction: column;
     background-color: #fff;
 }

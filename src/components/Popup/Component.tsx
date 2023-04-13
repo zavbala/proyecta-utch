@@ -3,6 +3,7 @@ import { Footer } from "@src/components/Footer";
 import { Form } from "@src/components/Form";
 import React from "react";
 import { browser } from "webextension-polyfill-ts";
+
 import css from "./styles.module.css";
 
 interface MainContextInterface {
@@ -29,7 +30,7 @@ export function Popup() {
 
     return (
         <div
-            className={css.popupContainer}
+            className={css.container}
             onContextMenu={(e) => e.preventDefault()}
         >
             <MainContext.Provider value={{ token, setToken }}>

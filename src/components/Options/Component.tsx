@@ -2,23 +2,23 @@ import * as React from "react";
 
 export const Options = () => {
     return (
-        <div className="flex flex-col items-center justify-center h-screen dark:bg-shark bg-white gap-y-2">
+        <div className="flex h-screen flex-col items-center justify-center gap-y-2 bg-white dark:bg-shark">
             <img
                 alt="Logo"
-                src="favicon-128.png"
+                src="Pyta.svg"
                 onDragStart={(e) => e.preventDefault()}
             />
 
             <a
-                className="text-2xl underline dark:text-cyan-600 text-blue-600"
-                href="https://github.com/zavbala/proyecta-utch"
                 target="_blank"
                 rel="noreferrer"
+                href="https://github.com/zavbala/proyecta-utch"
+                className="text-2xl text-blue-600 underline dark:text-cyan-600"
             >
                 Open Source
             </a>
 
-            <p className="dark:text-white text-black text-lg font-bold">
+            <p className="text-lg font-bold text-black dark:text-white">
                 Made by Jeremy Zabala
             </p>
         </div>

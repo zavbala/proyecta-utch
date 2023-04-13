@@ -21,10 +21,24 @@
         @apply outline-none;
     }
 
+    button:active {
+        @apply bounce;
+    }
+
     a,
     svg,
     span,
     small {
         @apply block;
+    }
+}
+
+@layer components {
+    .bounce {
+        @apply transition-all transform scale-95;
+    }
+
+    .input-text {
+        @apply rounded-lg bg-gray-200 font-medium border-2 focus-within:border-jewel focus-within:bg-transparent;
     }
 }

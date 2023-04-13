@@ -1,4 +1,4 @@
-import { CheckIcon, RocketIcon } from "@radix-ui/react-icons";
+import { CheckIcon, FileTextIcon } from "@radix-ui/react-icons";
 import { MainContext } from "@src/components/Popup/Component";
 import { fetcher, normalizeData } from "@src/lib/helpers";
 import type { Generic } from "@src/lib/types";
@@ -11,7 +11,7 @@ const TABS = [
     {
         id: "1",
         title: "Calificaciones",
-        icon: RocketIcon,
+        icon: FileTextIcon,
     },
     {
         id: "2",
@@ -47,14 +47,14 @@ export const Dashboard = () => {
 
     return (
         <>
-            <header className="bg-jewel rounded-t-md p-3 flex items-center justify-around h-[75px]">
+            <header className="flex h-[75px] items-center justify-around bg-jewel p-3">
                 {TABS.map((tab) => (
                     <button
                         {...tab}
                         key={tab.title}
-                        className={`p-2 rounded transition-all duration-100 ${
+                        className={`rounded p-2 transition-all duration-100 ${
                             currentTab === tab.title
-                                ? "bg-white cursor-default"
+                                ? "cursor-default bg-white"
                                 : "hover:bg-gray-50/20"
                         }`}
                         onClick={(event) => {
@@ -77,7 +77,7 @@ export const Dashboard = () => {
                 ))}
             </header>
 
-            <div className="h-[400px] hover:overflow-y-auto overflow-hidden p-5">
+            <div className="h-[400px] overflow-hidden p-5 hover:overflow-y-auto">
                 {!res ? (
                     <span> ... </span>
                 ) : error ? (
@@ -106,13 +106,13 @@ const Table = ({ rows, skipCol }: TableProps) => {
                 return (
                     <article
                         key={index}
-                        className="flex items-center justify-between mb-5 flex-1"
+                        className="mb-5 flex flex-1 items-center justify-between"
                     >
-                        <div className="flex-none w-[55%]">
-                            <h1 className="text-xs font-bold break-words">
+                        <div className="w-[55%] flex-none">
+                            <h1 className="break-words text-xs font-bold">
                                 {metadata.materia}
                             </h1>
-                            <span className="text-xs break-words">
+                            <span className="break-words text-xs">
                                 {metadata.profesor
                                     .split(" ")
                                     .slice(1)
@@ -120,9 +120,9 @@ const Table = ({ rows, skipCol }: TableProps) => {
                             </span>
                         </div>
 
-                        <span className="bg-jewel h-5 w-0.5" />
+                        <span className="h-5 w-0.5 bg-jewel" />
 
-                        <div className="flex items-center justify-around flex-1">
+                        <div className="flex flex-1 items-center justify-around">
                             {cols
                                 .slice(0, skipCol || undefined)
                                 .map((col, index) => (

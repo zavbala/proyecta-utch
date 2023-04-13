@@ -1,14 +1,15 @@
 const path = require("path");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     entry: {
-        backgroundPage: path.join(__dirname, "src/backgroundPage.ts"),
+        background: path.join(__dirname, "src/background.ts"),
         popup: path.join(__dirname, "src/components/Popup/index.tsx"),
         options: path.join(__dirname, "src/components/Options/index.tsx"),
     },
     output: {
-        path: path.join(__dirname, "dist/js"),
         filename: "[name].js",
+        path: path.join(__dirname, "dist/js"),
     },
     module: {
         rules: [
@@ -41,5 +42,8 @@ module.exports = {
         alias: {
             "@src": path.resolve(__dirname, "src/"),
         },
+    },
+    optimization: {
+        minimizer: [new TerserPlugin({ extractComments: false })],
     },
 };

@@ -19,8 +19,8 @@ export const Form = () => {
 
     const {
         register,
-        handleSubmit,
         setFocus,
+        handleSubmit,
         formState: { isSubmitting },
     } = useForm<Fields>({
         mode: "onChange",
@@ -44,15 +44,15 @@ export const Form = () => {
 
     return (
         <form
-            onSubmit={handleSubmit(submit)}
             autoComplete="off"
-            className="flex flex-col gap-y-5 w-[85%] m-auto"
+            onSubmit={handleSubmit(submit)}
+            className="m-auto flex w-[85%] flex-col gap-y-5"
         >
             <img
                 alt="Logo"
-                src="favicon-128.png"
-                onDragStart={(e) => e.preventDefault()}
+                src="Pyta.svg"
                 className="m-auto mb-5"
+                onDragStart={(e) => e.preventDefault()}
             />
 
             {userNotFound && (
@@ -61,25 +61,19 @@ export const Form = () => {
                 </small>
             )}
 
-            <div
-                className="rounded-lg bg-gray-200 font-medium border-2
-             focus-within:border-jewel focus-within:bg-transparent transition-all duration-200"
-            >
+            <div className="input-text transition-all duration-200">
                 <input
+                    type="text"
+                    placeholder="Matrícula"
                     {...register("user", {
                         required: true,
                         minLength: 10,
                         pattern: /^\d+$/,
                     })}
-                    placeholder="Matrícula"
-                    type="text"
                 />
             </div>
 
-            <div
-                className="rounded-lg bg-gray-200 font-medium border-2
-             focus-within:border-jewel focus-within:bg-transparent transition-all duration-200 relative"
-            >
+            <div className="input-text relative transition-all duration-200">
                 <input
                     {...register("password", {
                         required: true,
@@ -91,7 +85,7 @@ export const Form = () => {
                 <button
                     type="button"
                     onClick={() => setToggle(!toggle)}
-                    className="p-2 hover:bg-gray-300 rounded absolute inset-y-2 right-2 flex items-center"
+                    className="absolute inset-y-2 right-2 flex items-center rounded p-2 hover:bg-gray-300"
                 >
                     {toggle ? <EyeNoneIcon /> : <EyeOpenIcon />}
                 </button>
@@ -99,7 +93,7 @@ export const Form = () => {
 
             <button
                 type="submit"
-                className="bg-jewel rounded-full p-4 font-bold text-white w-full hover:bg-eucalyptus"
+                className="w-full rounded-full bg-jewel p-4 font-bold text-white hover:bg-eucalyptus"
             >
                 {isSubmitting ? "..." : "Iniciar Sesión"}
             </button>
