@@ -10,7 +10,7 @@
         "format": "prettier --write \"src/**/*.ts*\"",
         "lint": "eslint --fix -c ./.eslintrc.js \"src/**/*.ts*\"",
         "dev": "npm run manifest && webpack -w --config webpack.dev.js",
-        "build:firefox": "npm run build && npm run manifest:v1 dist && export CLIENT=firefox",
+        "build:firefox": "npm run build && npm run manifest && export CLIENT=firefox",
         "build:chrome": "npm run build && cp data/manifest_V3.json dist && mv dist/manifest_V3.json dist/manifest.json && export CLIENT=chrome"
     },
     "author": "zavbala",
